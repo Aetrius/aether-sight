@@ -1,0 +1,17 @@
+
+0. Build Dockerfile and Github CICD - use example from my k8s project.
+1. Create REDIS instance via Kubernetes
+2. Capture screen for various VMs from docker container.
+  2.1 Capture from Ubuntu
+  2.2 Capture from Docker
+  2.3 Capture from Windows
+3. build api layer to handle read/writes to redis.
+4. Build swagger API page for this.
+5. send data to the API layer.
+
+Example resources:
+https://pkg.go.dev/github.com/kbinani/screenshot#section-readme
+https://github.com/kbinani/screenshot/blob/b87d318142370b67008aea5f85261fe14cf8423d/example/main.go
+https://github.com/kbinani/screenshot/blob/b87d31814237/screenshot.go
+https://github.com/vova616/screenshot
+https://stackoverflow.com/questions/13790852/capture-the-screen-in-go
