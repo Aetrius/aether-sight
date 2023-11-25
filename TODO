@@ -5,9 +5,13 @@
   2.1 Capture from Ubuntu
   2.2 Capture from Docker
   2.3 Capture from Windows
-3. build api layer to handle read/writes to redis.
+3. build api layer to handle 
+  3.1 read to redis
+  3.2 write to redis
 4. Build swagger API page for this.
 5. send data to the API layer.
+  5.1 done
+6. build helm carts
 
 Example resources:
 https://pkg.go.dev/github.com/kbinani/screenshot#section-readme

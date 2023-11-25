@@ -35,7 +35,10 @@ func convertScreenshot() (bool, error) {
 
 	// Print the full base64 representation of the image
 	//fmt.Println(base64Encoding)
-	//writeBase64ToFile(toBase64(bytes))
+	//writeBase64ToFile(bytes)
+
+	// posting image to api
+	postImage(bytes)
 
 	return true, err
 }
