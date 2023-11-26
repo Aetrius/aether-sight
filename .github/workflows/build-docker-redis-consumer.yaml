@@ -1,4 +1,4 @@
-name: Build Docker Image
+name: Build Docker Image - Aethersight Redis Consumer
 env:
   TARGET_PLATFORMS: linux/amd64,linux/arm64
   REGISTRY: ghcr.io
