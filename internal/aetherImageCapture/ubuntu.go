@@ -1,6 +1,7 @@
 package aetherImageCapture
 
 import (
+	"fmt"
 	"os/exec"
 )
 
@@ -12,6 +13,7 @@ func linuxScreenshot() ([]string, bool, error) {
 	cmd := exec.Command("/usr/bin/gnome-screenshot", "-f", "screen_capture.png")
 
 	if err = cmd.Run(); err != nil {
+		fmt.Println("you need to make sure you have gnome-screenshot installed...")
 		return images, false, err
 	}
 
