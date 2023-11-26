@@ -17,10 +17,10 @@ type Data struct {
 	Base64Value  string `json:"base64Value"`
 }
 
-func storeToRedis(screenshot string) {
+func storeToRedis(screenshot string, hostNameIn string) {
 	// Connect to Redis
 	rdb := redis.NewClient(&redis.Options{
-		Addr: "192.168.2.4:6379", // Redis server address
+		Addr: fmt.Sprintf("%s:%s", REDIS_SERVER_IP, REDIS_SERVER_PORT), // Redis server address
 	})
 
 	// Ping the Redis server to check the connection
@@ -38,7 +38,7 @@ func storeToRedis(screenshot string) {
 
 	// Create a Data struct instance
 	data := Data{
-		ComputerName: "aether",
+		ComputerName: hostNameIn,
 		ScreenNumber: "0",
 		DateTime:     timeString,
 		Base64Value:  encodeBase64(screenshot),

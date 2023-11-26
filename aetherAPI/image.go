@@ -20,6 +20,7 @@ func setupImageRoutes(images *gin.RouterGroup) {
 func setImage(c *gin.Context) {
 	// Read the request body as a byte array
 	debugFlag := c.DefaultQuery("debug", "false")
+	hostName := c.DefaultQuery("host", "default")
 
 	bodyBytes, err := ioutil.ReadAll(c.Request.Body)
 	if err != nil {
@@ -29,7 +30,7 @@ func setImage(c *gin.Context) {
 
 	// Convert the byte array to a base64 string
 	base64String := base64.StdEncoding.EncodeToString(bodyBytes)
-	storeToRedis(base64String)
+	storeToRedis(base64String, hostName)
 
 	if strings.ToLower(debugFlag) == "true" {
 		fmt.Println("Request Body as Base64:", base64String)
