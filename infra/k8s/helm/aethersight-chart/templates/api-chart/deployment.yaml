@@ -31,6 +31,10 @@ spec:
           limits:
             cpu: 1.5
             memory: 2.5Gi
-        # env:
+        env:
+          - name: REDIS_SERVER_IP
+            value: {{ .Values.api.redisIP }}
+          - name: REDIS_SERVER_PORT
+            value: {{ .Values.api.redisPort }}
       # imagePullSecrets:
       #   - name: {{ .Values.api.imagePullSecret}} 

@@ -14,8 +14,8 @@ import (
 func postImage(base64In []byte) {
 	godotenv.Load(".env")
 	//add check if the values are present
-	REDIS_SERVER_IP := os.Getenv("REDIS_SERVER_IP")
-	REDIS_PORT := os.Getenv("REDIS_SERVER_PORT")
+	API_IP := os.Getenv("API_IP")
+	API_PORT := os.Getenv("API_PORT")
 	API_VERSION := os.Getenv("API_VERSION")
 	HTTPS_ENABLED := os.Getenv("HTTPS_ENABLED")
 	HOST_NAME := os.Getenv("HOST_NAME")
@@ -33,7 +33,7 @@ func postImage(base64In []byte) {
 	}
 
 	// URL to forward the request to
-	url := fmt.Sprintf("%s://%s:%s/%s/image/host=%s", http_method, REDIS_SERVER_IP, REDIS_PORT, API_VERSION, HOST_NAME)
+	url := fmt.Sprintf("%s://%s:%s/%s/image/host=%s", http_method, API_IP, API_PORT, API_VERSION, HOST_NAME)
 
 	// Create a POST request with the base64 string as the body
 	req, err := http.NewRequest("PUT", url, bytes.NewBuffer(requestBody))

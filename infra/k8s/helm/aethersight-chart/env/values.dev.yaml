@@ -8,6 +8,8 @@ api:
   webPort: 8080
   image: ghcr.io/aetrius/aether-sight/aether-api:main
   loadBalancerIP: 192.168.2.5
+  redisIP: 192.168.2.4
+  redisPort: 6379
   # imagePullSecret: regcred-aethersight
 
 consumer:

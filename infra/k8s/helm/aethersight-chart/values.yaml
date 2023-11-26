@@ -1,5 +1,5 @@
 # Default values for api-chart.
-namespace: aethersight
+namespace: aethersight-api
 
 api:
   appName: aethersight-api
@@ -8,6 +8,8 @@ api:
   webPort: 8080
   image: ghcr.io/aetrius/aether-sight/aether-api:main
   loadBalancerIP: 192.168.2.5
+  redisIP: 192.168.2.4
+  redisPort: 6379
   # imagePullSecret: regcred-aethersight
 
 consumer:
@@ -16,3 +18,11 @@ consumer:
   revisionHistoryLimit: 2
   webPort: 6379
   image: ghcr.io/aetrius/aether-sight/aether-redis-consumer:main
+
+commander:
+  appName: redis-commander
+  replicaCount: 2
+  revisionHistoryLimit: 2
+  webPort: 80
+  localPort: 8081
+  image: rediscommander/redis-commander
