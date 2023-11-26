@@ -1,0 +1,54 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.commander.appName }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ .Values.commander.appName }}
+  annotations:
+    container.apparmor.security.beta.kubernetes.io/redis-commander: runtime/default
+    container.security.alpha.kubernetes.io/redis-commander: runtime/default
+spec:
+  replicas: {{ .Values.commander.replicaCount }}
+  revisionHistoryLimit: {{ .Values.commander.revisionHistoryLimit }}
+  selector:
+    matchLabels:
+      app: {{ .Values.commander.appName }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.commander.appName }}
+    spec:
+      containers:
+      - name: {{ .Values.commander.appName }}-app
+        image: {{ .Values.commander.image }}
+        ports:
+        - name: web #web interface
+          containerPort: {{ .Values.commander.webPort }}
+        imagePullPolicy: Always
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "512M"
+        livenessProbe:
+          httpGet:
+            path: /favicon.png
+            port: 8081
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+        env:
+          - name: REDIS_HOST
+            value: "my-release-redis-master.default.svc.cluster.local"
+          - name: K8S_SIGTERM
+            value: "1"
+        securityContext:
+          runAsNonRoot: true
+          readOnlyRootFilesystem: false
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+              - ALL
+        # env:
+      # imagePullSecrets:
+      #   - name: {{ .Values.commander.imagePullSecret}} 

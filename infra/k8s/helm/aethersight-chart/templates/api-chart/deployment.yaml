@@ -1,0 +1,36 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.api.appName }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ .Values.api.appName }}
+spec:
+  replicas: {{ .Values.api.replicaCount }}
+  revisionHistoryLimit: {{ .Values.api.revisionHistoryLimit }}
+  selector:
+    matchLabels:
+      app: {{ .Values.api.appName }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.api.appName }}
+    spec:
+      containers:
+      - name: {{ .Values.api.appName }}-app
+        image: {{ .Values.api.image }}
+        ports:
+        - name: web #web interface
+          containerPort: {{ .Values.api.webPort }}
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: 1
+            memory: 2Gi
+          limits:
+            cpu: 1.5
+            memory: 2.5Gi
+        # env:
+      # imagePullSecrets:
+      #   - name: {{ .Values.api.imagePullSecret}} 

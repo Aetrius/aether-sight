@@ -2,19 +2,37 @@ package aetherImageCapture
 
 import (
 	"bytes"
+	"net/http"
+	"os"
+
 	//"encoding/base64"
 	"fmt"
-	"net/http"
+
+	"github.com/joho/godotenv"
 )
 
 func postImage(base64In []byte) {
+	godotenv.Load(".env")
+	//add check if the values are present
+	CONSUMER_IP := os.Getenv("REDIS_CONSUMER_IP")
+	CONSUMER_PORT := os.Getenv("REDIS_CONSUMER_PORT")
+	API_VERSION := os.Getenv("API_VERSION")
+	HTTPS_ENABLED := os.Getenv("HTTPS_ENABLED")
+	var http_method string
+
 	base64String := base64In
 
 	// Create a request body from the base64 string
 	requestBody := []byte(base64String)
 
+	if HTTPS_ENABLED == "false" {
+		http_method = "http"
+	} else {
+		http_method = "https"
+	}
+
 	// URL to forward the request to
-	url := "http://localhost:8080/v1/image/"
+	url := fmt.Sprintf("%s://%s:%s/%s/image/", http_method, CONSUMER_IP, CONSUMER_PORT, API_VERSION)
 
 	// Create a POST request with the base64 string as the body
 	req, err := http.NewRequest("PUT", url, bytes.NewBuffer(requestBody))
