@@ -1,4 +1,4 @@
-package aetherImageCapture
+package aetherRedisConsumer
 
 import (
 	"fmt"
@@ -8,11 +8,11 @@ import (
 )
 
 func Run() {
-	fmt.Println("Running Image Capture")
-	captureScreen()
+	fmt.Println("Running Redis Consumer")
+	startConsumer()
 }
 
-var stopCapture = make(chan struct{})
+var stopConsumer = make(chan struct{})
 
 func Start() {
 
@@ -31,9 +31,9 @@ func Start() {
 			Run()
 		case <-terminationSignal:
 			fmt.Println("Termination signal received. Stopping image capture...")
-			stopCapture <- struct{}{} // Signal to stop image capturing
+			stopConsumer <- struct{}{} // Signal to stop image capturing
 			return
-		case <-stopCapture:
+		case <-stopConsumer:
 			return // Stop image capture when signaled
 		}
 	}

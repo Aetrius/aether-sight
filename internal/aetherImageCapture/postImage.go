@@ -14,7 +14,7 @@ func postImage(base64In []byte) {
 	requestBody := []byte(base64String)
 
 	// URL to forward the request to
-	url := "http://localhost:8080/v1/image"
+	url := "http://localhost:8080/v1/image/"
 
 	// Create a POST request with the base64 string as the body
 	req, err := http.NewRequest("PUT", url, bytes.NewBuffer(requestBody))

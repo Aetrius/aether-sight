@@ -3,10 +3,11 @@ package aetherAPI
 import (
 	"encoding/base64"
 	"fmt"
-	"github.com/gin-gonic/gin"
-	"net/http"
 	"io/ioutil"
+	"net/http"
 	"strings"
+
+	"github.com/gin-gonic/gin"
 )
 
 func setupImageRoutes(images *gin.RouterGroup) {
@@ -28,13 +29,15 @@ func setImage(c *gin.Context) {
 
 	// Convert the byte array to a base64 string
 	base64String := base64.StdEncoding.EncodeToString(bodyBytes)
+	storeToRedis(base64String)
 
-	if (strings.ToLower(debugFlag) == "true") {
+	if strings.ToLower(debugFlag) == "true" {
 		fmt.Println("Request Body as Base64:", base64String)
+
 	} else {
 		//fmt.Println("")
+
 	}
-	
 
 	c.JSON(http.StatusOK, gin.H{"message": "Set Image Complete"})
 }

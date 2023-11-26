@@ -7,37 +7,38 @@ import (
 )
 
 func captureScreen() {
+	var images []string
 	var capture bool = false
 	var err error
 
 	if runtime.GOOS == "windows" {
 		// windows specific code here...
-		capture, err = winScreenshot()
+		images, capture, err = winScreenshot()
 
 	} else if runtime.GOOS == "darwin" {
-		capture, err = macScreenshot()
+		images, capture, err = macScreenshot()
 
 	} else if runtime.GOOS == "linux" {
 		//capture
 	} else {
-		err = errors.New("Unable to determine underlying OS. Supported OS Windows, Darwin, Linux/Ubuntu")
+		err = errors.New("unable to determine underlying OS. Supported OS Windows, Darwin, Linux/Ubuntu")
 	}
 
-	if err == nil && capture == true {
-		result, err := convertScreenshot()
+	if err == nil && capture {
+		result, err := convertScreenshot(images)
 
-		if result == true && err == nil {
-			screenValidator, errDelete := deleteScreenshot()
-			if screenValidator == true && err == nil {
+		if result && err == nil {
+			screenValidator, errDelete := deleteScreenshot(images)
+			if screenValidator && err == nil {
 
 			} else {
-				fmt.Println(fmt.Sprintf("Screenshot failed to capture, check permissions and GOOS runtime. %s", errDelete))
+				fmt.Printf("Screenshot failed to capture, check permissions and GOOS runtime. %s\n", errDelete)
 			}
 		} else {
-			fmt.Println(fmt.Sprintf("Screenshot failed to capture, check permissions and GOOS runtime. %s", err))
+			fmt.Printf("Screenshot failed to capture, check permissions and GOOS runtime. %s", err)
 		}
 
 	} else {
-		fmt.Println(fmt.Sprintf("Screenshot failed to capture, check permissions and GOOS runtime. %s", err))
+		fmt.Printf("Screenshot failed to capture, check permissions and GOOS runtime. %s", err)
 	}
 }
