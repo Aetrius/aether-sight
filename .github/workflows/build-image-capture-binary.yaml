@@ -27,7 +27,7 @@ jobs:
         id: create_release
         uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.PRD_SECRET }}
+          PRD_SECRET: ${{ secrets.PRD_SECRET }}
         with:
           tag_name: v1.0.0  # Change this to your release tag
           release_name: Release v1.0.0  # Change this to your release name
@@ -38,9 +38,9 @@ jobs:
         id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.PRD_SECRET }}
+          PRD_SECRET: ${{ secrets.PRD_SECRET }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./myapp
-          asset_name: myapp
+          asset_path: ./aether-image-capture
+          asset_name: aether-image-capture
           asset_content_type: application/octet-stream
