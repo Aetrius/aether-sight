@@ -15,5 +15,5 @@ RUN go build -o aether-image-capture ./cmd/aetherImageCapture
 
 EXPOSE 8080 8081 443 80 
 
-CMD [ "./aether-image-Capture" ]
+CMD [ "./aether-image-capture" ]
 
