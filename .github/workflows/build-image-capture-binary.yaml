@@ -33,6 +33,10 @@ jobs:
           release_name: Release v1.0.0  # Change this to your release name
           draft: false
           prerelease: false
+          
+      - name: Set execute permission for the binary
+        run: |
+          chmod +x ./aether-image-capture-linux
 
       - name: Upload Release Asset
         id: upload-release-asset
