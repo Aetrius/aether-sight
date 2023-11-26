@@ -20,6 +20,7 @@ func captureScreen() {
 
 	} else if runtime.GOOS == "linux" {
 		//capture
+		images, capture, err = linuxScreenshot()
 	} else {
 		err = errors.New("unable to determine underlying OS. Supported OS Windows, Darwin, Linux/Ubuntu")
 	}
