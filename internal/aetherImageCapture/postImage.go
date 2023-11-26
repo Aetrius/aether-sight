@@ -19,7 +19,10 @@ func postImage(base64In []byte) {
 	API_VERSION := os.Getenv("API_VERSION")
 	HTTPS_ENABLED := os.Getenv("HTTPS_ENABLED")
 	HOST_NAME := os.Getenv("HOST_NAME")
+	FULL_PATH := os.Getenv("PATH")
 	var http_method string
+
+	fmt.Printf("Full path: %s", FULL_PATH)
 
 	base64String := base64In
 
